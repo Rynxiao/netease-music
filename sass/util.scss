@@ -1,0 +1,56 @@
+$browser-default-font-size: 75 !default;
+
+@function strip-units($number) { 
+    @return $number / ($number * 0 + 1); 
+} 
+
+@mixin px2rem($property, $values...) { 
+    $max: length($values); //返回$values列表的长度值 
+    $remValues: ''; 
+
+    @for $i from 1 through $max { 
+        $value: strip-units(nth($values, $i)); 
+        $remValues: #{$remValues + $value / $browser-default-font-size}rem; 
+
+        @if $i < $max { 
+            $remValues: #{$remValues + " "}; 
+        } 
+    } 
+
+    #{$property}: $remValues; 
+}
+
+@mixin px2rem-important($property, $values...) { 
+    $max: length($values); //返回$values列表的长度值 
+    $remValues: ''; 
+
+    @for $i from 1 through $max { 
+        $value: strip-units(nth($values, $i)); 
+        $remValues: #{$remValues + $value / $browser-default-font-size}rem; 
+
+        @if $i < $max { 
+            $remValues: #{$remValues + " "}; 
+        } 
+    } 
+
+    #{$property}: $remValues!important; 
+}
+
+@mixin font-dpr($font-size) {
+    font-size: round($font-size / 2) * 1px;
+    [data-dpr = '2'] & {
+        font-size: $font-size * 1px;
+    }
+    [data-dpr = '2.5'] & {
+        font-size: round($font-size * 2.5 / 2) * 1px;
+    }
+    [data-dpr = '2.75'] & {
+        font-size: round($font-size * 2.75 / 2) * 1px;
+    }
+    [data-dpr = '3'] & {
+        font-size: round($font-size * 3 / 2) * 1px;
+    }
+    [data-dpr = '4'] & {
+        font-size: $font-size * 2px;
+    }
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <meta name="description" content="wangyi music">
+    <meta name="author" content="ryn">
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://apps.bdimg.com/libs/html5shiv/r29/html5.min.js"></script>
+    <![endif]-->
+    <!-- styles -->
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <script src="/javascripts/flexible.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 背景 -->
+        <div class="bg" id="bg"></div>
+
+        <!-- 内容 -->
+        <div class="app-content">
+            <!-- 头部 --> 
+            <header class="header">
+                <p class="title" id="song"><%= song.replace('.mp3', '') %></p>
+                <p class="sub" id="singer"><%= singer %></p>
+            </header>
+
+            <!-- 内容区域 -->
+            <section class="content">
+                <!-- 指针 -->
+                <div class="pin" id="pin"></div>
+                <div class="pin-top"></div>
+                <div class="pin-bottom"></div>
+
+                <!-- 唱片 -->
+                <div class="disc">
+                    <img id="post" class="disc-center" src="/images/<%= post %>" alt="中心旋转">
+                </div>
+            </section>
+
+            <!-- 底部 -->
+            <section class="footer">
+                <div class="operator">
+                    <a href="javascript:void(0);"><i class="love"></i></a>
+                    <a href="javascript:void(0);"><i class="download"></i></a>
+                    <a href="javascript:void(0);"><i class="comment"></i></a>
+                    <a href="javascript:void(0);"><i class="more"></i></a>
+                </div>
+                <div class="progress">
+                    <div class="progress-wrapper">
+                        <div class="start" id="start">00:00</div>
+                        <div class="bar" id="bar">
+                            <div class="inner" id="inner"></div>
+                            <div class="outer" id="out"></div>
+                            <div class="dot" id="dot"></div>
+                        </div>
+                        <div class="total" id="total">00:00</div>
+                    </div>
+                </div>
+                <div class="change">
+                    <a href="javascript:void(0);" id="loop"><i class="loop"></i></a>
+                    <a href="javascript:void(0);" id="prev"><i class="prev"></i></a>
+                    <a class="play" href="javascript:void(0);" id="state"><i class="state"></i></a>
+                    <a href="javascript:void(0);" id="next"><i class="next"></i></a>
+                    <a href="javascript:void(0);" id="list"><i class="list"></i></a>
+                </div>
+            </section>
+        </div>
+
+        <!-- 播放列表 -->
+        <section class="play-list down" id="playList">
+            <div class=play-mask id="playMask"></div>
+            <div class="play-content">
+                <div class="title"><i class="loop"></i>列表循环(<%= music.length %>)</div>
+                <ul>
+                    <% 
+                        music.forEach(function(name, index) { 
+                            var n = name.split(' - ');
+                            var sn = n[1].replace('.mp3', '');
+                    %>
+                        <li class="play-item" data-post="<%= posts[index] %>" data-song="<%= sn %>" data-singer="<%= n[0] %>" data-name="<%= name %>">
+                            <%= sn %> - <span class="s-name"><%= n[0] %></span>
+                        </li>
+                    <% }) %>
+                </ul>
+                <div class="footer" id="listClose">关闭</div>
+            </div>
+        </section>
+
+        <div class="first-song" id="firstSong" style="display:none;"><%= music[0] %></div>
+        <div class="list-length" id="listLength" style="display:none;"><%= music.length %></div>
+    </div>
+    <script src="/javascripts/index.js"></script>
+</body>
+</html>

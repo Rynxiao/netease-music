@@ -1,0 +1,350 @@
+@import './color.scss';
+@import './util.scss';
+
+a, a:hover {
+    text-decoration: none;
+}
+
+ul, li {
+    list-style: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes turnForever {
+    0% { transform: rotate(0deg); }
+    100% {transform: rotate(-360deg);}
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: auto;
+    .bg {
+        width: 100%;
+        height: 100%;
+        background: url('../images/c4.jpeg') no-repeat center;
+        background-color: $backgroundColor;
+        background-size: auto 100%;
+        filter: blur(10px);
+    }
+    .app-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.header {
+    width: 100%;
+    @include px2rem(height, 96px);
+    text-align: center;
+    border-bottom: 1px solid $titleLine;
+    background-color: $titleBg;
+    p {
+        color: $white;
+    }
+    .title {
+        @include font-dpr(32);
+        @include px2rem(margin-top, 8px);
+    }
+}
+
+.content {
+    width: 100%;
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    .pin {
+        @include px2rem(height, 286px);
+        @include px2rem(width, 172px);
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-8 / 75 * 1rem) rotate(-29deg);
+        transform-origin: 0% 0%;
+        background: url('../images/pin.png') no-repeat left top;
+        background-size: auto 100%;
+        z-index: 2;
+        transition: transform 0.2s;
+        &.pin-play {
+            transform: translateX(-8 / 75 * 1rem) rotate(0deg);
+        }
+    }
+    .pin-top {
+        @include px2rem(width, 52px);
+        @include px2rem(height, 28px);
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background: url('../images/pin-circle.png') no-repeat center;
+        background-size: 100% 100%;
+        z-index: 3;
+    }
+    .pin-bottom {
+        @include px2rem(width, 74px);
+        @include px2rem(height, 40px);
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background: url('../images/pin-under-circle.png') no-repeat center;
+        background-size: 100% 100%;
+        z-index: 3;
+    }
+    .disc {
+        @include px2rem(width, 600px);
+        @include px2rem(height, 600px);
+        position: absolute;
+        @include px2rem(top, 160px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: url('../images/disc.png') no-repeat center;
+        background-size: 100% 100%;
+        .disc-center {
+            @include px2rem(width, 310px);
+            @include px2rem(height, 310px);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            @include px2rem(margin-left, -155px);
+            @include px2rem(margin-top, -155px);
+            border-radius: 50%;
+            &.turn-forever {
+                animation: turnForever 5s infinite linear;
+            }
+        }
+    }
+}
+
+.footer {
+    @include px2rem(height, 320px);
+    display: flex;
+    flex-direction: column;
+    .operator {
+        @include px2rem(height, 88px);
+        @include px2rem(line-height, 88px);
+        text-align: center;
+        a {
+            display: inline-block;
+            @include px2rem(margin, 19px, 54px, 0);
+            @include px2rem(width, 56px);
+            @include px2rem(height, 50px);
+            outline: none;
+            text-decoration: none;
+            i {
+                display: block;
+                width: 100%;
+                height: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
+                &.love {
+                    background-image: url('../images/icon-love.png');
+                    background-size: cover;
+                }
+                &.download {
+                    background-image: url('../images/icon-download.png');
+                    background-size: cover;
+                }
+                &.comment {
+                    background-image: url('../images/icon-comment.png');
+                    background-size: cover;
+                }
+                &.more {
+                    background-image: url('../images/icon-list.png');
+                    background-size: auto 100%;
+                }
+            }
+        }
+    }
+    .progress {
+        @include px2rem(height, 80px);
+        .progress-wrapper {
+            display: flex;
+        }
+        .start {
+            width: 12%;
+            text-align: right;
+            @include px2rem(line-height, 80px);
+            color: $white;
+        }
+        .bar {
+            flex: 1;
+            box-sizing: border-box;
+            @include px2rem(margin, 0, 30px);
+            position: relative;
+            div {
+                display: inline-block;
+            }
+            .inner {
+                @include px2rem(height, 4px);
+                background-color: $barInner;
+                width: 100%;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 1;
+            }
+            .outer {
+                @include px2rem(height, 4px);
+                background-color: $barOuter;
+                width: 0%;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 2;
+            }
+            .dot {
+                @include px2rem(width, 32px);
+                @include px2rem(height, 32px);
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background: url('../images/bar-dot.png') no-repeat center;
+                background-size: 100%;
+                z-index: 3;
+            }
+        }
+        .total {
+            width: 12%;
+            @include px2rem(line-height, 80px);
+            color: $white;
+        }
+    }
+    .change {
+        flex: 1;
+        text-align: center;
+        overflow: hidden;
+        a {
+            display: inline-block;
+            float: left;
+            width: 20%;
+            height: 100%;
+            outline: none;
+            text-decoration: none;
+            i {
+                display: block;
+                width: 100%;
+                height: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
+                &.loop {
+                    background-image: url('../images/icon-loop.png');
+                }
+                &.prev {
+                    background-image: url('../images/icon-prev.png');
+                }
+                &.next {
+                    background-image: url('../images/icon-next.png');
+                }
+                &.list {
+                    background-image: url('../images/icon-play-list.png');
+                }
+            }
+            &.pause > i {
+                background-image: url('../images/icon-pause.png');
+            }
+            &.play > i {
+                background-image: url('../images/icon-play.png');
+            }
+        }
+    }
+}
+
+.play-list {
+    width: 100%;
+    height: 70%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    &.up {
+        transform: tranlate(0, 0) tranlateZ(0);
+    }
+    &.down {
+        transform: translate(0, 100%) translateZ(0);
+    }
+    transition: transform 0.2s;
+    .play-mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+    }
+    .play-content {
+        background-color: rgba(255, 255, 255, 0.95);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        ul {
+            flex: 1;
+            overflow: auto;
+            li {
+                @include px2rem(padding, 30px, 20px);
+                border-bottom: 1px solid $lineColor;
+                @include font-dpr(32);
+                .s-name {
+                    @include font-dpr(24);
+                    color: #ad9872;
+                }
+            }
+        } 
+        .title {
+            @include px2rem(padding, 30px, 20px);
+            border-bottom: 1px solid $lineColor;
+            @include font-dpr(32);
+            .loop {
+                display: inline-block;
+                @include px2rem(width, 44px);
+                @include px2rem(height, 40px);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url('../images/icon-loop.png');
+                @include px2rem(vertical-align, -8px);
+            }
+        }
+        .footer {
+            text-align: center;
+            @include font-dpr(32);
+            @include px2rem(height, 107px);
+            @include px2rem(line-height, 107px);
+            border-top: 1px solid $lineColor;
+        }
+    }
+}
+
+
+
+
+
+
+
+
