@@ -27,15 +27,20 @@
             </header>
 
             <!-- 内容区域 -->
-            <section class="content">
-                <!-- 指针 -->
-                <div class="pin" id="pin"></div>
-                <div class="pin-top"></div>
-                <div class="pin-bottom"></div>
+            <section class="content" id="content">
+                <div class="front show">
+                    <!-- 指针 -->
+                    <div class="pin" id="pin"></div>
+                    <div class="pin-top"></div>
+                    <div class="pin-bottom"></div>
 
-                <!-- 唱片 -->
-                <div class="disc">
-                    <img id="post" class="disc-center" src="/images/<%= post %>" alt="中心旋转">
+                    <!-- 唱片 -->
+                    <div class="disc">
+                        <img id="post" class="disc-center" src="/images/<%= post %>" alt="中心旋转">
+                    </div>
+                </div>
+                <div class="back">
+                    <canvas id="canvas"></canvas>
                 </div>
             </section>
 
@@ -59,7 +64,7 @@
                     </div>
                 </div>
                 <div class="change">
-                    <a href="javascript:void(0);" id="loop"><i class="loop"></i></a>
+                    <a href="javascript:void(0);" id="loop"><i class="loop turn"></i></a>
                     <a href="javascript:void(0);" id="prev"><i class="prev"></i></a>
                     <a class="play" href="javascript:void(0);" id="state"><i class="state"></i></a>
                     <a href="javascript:void(0);" id="next"><i class="next"></i></a>
@@ -72,7 +77,10 @@
         <section class="play-list down" id="playList">
             <div class=play-mask id="playMask"></div>
             <div class="play-content">
-                <div class="title"><i class="loop"></i>列表循环(<%= music.length %>)</div>
+                <div class="title" id="listLoop">
+                    <i class="loop turn"></i>
+                    <span id="loopText">列表循环(<%= music.length %>)</span>
+                </div>
                 <ul>
                     <% 
                         music.forEach(function(name, index) { 

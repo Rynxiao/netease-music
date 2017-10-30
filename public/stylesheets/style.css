@@ -122,6 +122,24 @@ html, body {
       border-radius: 50%; }
       .content .disc .disc-center.turn-forever {
         animation: turnForever 5s infinite linear; }
+  .content .front, .content .back {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.5s; }
+    .content .front.show, .content .back.show {
+      opacity: 1; }
+  .content .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 0.53333rem; }
+    .content .back canvas {
+      width: 100%;
+      height: 100%; }
 
 .footer {
   height: 4.26667rem;
@@ -219,7 +237,13 @@ html, body {
         background-position: center;
         background-repeat: no-repeat; }
         .footer .change a i.loop {
-          background-image: url("../images/icon-loop.png"); }
+          background-size: 40px 39px; }
+          .footer .change a i.loop.single {
+            background-image: url("../images/single.png"); }
+          .footer .change a i.loop.turn {
+            background-image: url("../images/turn.png"); }
+          .footer .change a i.loop.random {
+            background-image: url("../images/random.png"); }
         .footer .change a i.prev {
           background-image: url("../images/icon-prev.png"); }
         .footer .change a i.next {
@@ -234,7 +258,7 @@ html, body {
 .play-list {
   width: 100%;
   height: 70%;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -314,10 +338,17 @@ html, body {
         display: inline-block;
         width: 0.58667rem;
         height: 0.53333rem;
+        margin-right: 0.10667rem;
         background-position: center;
         background-repeat: no-repeat;
-        background-image: url("../images/icon-loop.png");
+        background-size: 40px 39px;
         vertical-align: -0.10667rem; }
+        .play-list .play-content .title .loop.single {
+          background-image: url("../images/single-dark.png"); }
+        .play-list .play-content .title .loop.turn {
+          background-image: url("../images/turn-dark.png"); }
+        .play-list .play-content .title .loop.random {
+          background-image: url("../images/random-dark.png"); }
     .play-list .play-content .footer {
       text-align: center;
       font-size: 16px;
