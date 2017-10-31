@@ -564,7 +564,7 @@
         isListOut && down();
 
         // 加载音频
-        load('/media/' + name);
+        load('http://oyo3prim6.bkt.clouddn.com/' + name);
     }
 
     /**
@@ -866,7 +866,7 @@
 
     function init() {
         // 加载第一首
-        load('/media/' + firstSongInfo);
+        load('http://oyo3prim6.bkt.clouddn.com/' + firstSongInfo);
 
         // 设置进度条总共宽度
         innerWidth = inner.clientWidth;
