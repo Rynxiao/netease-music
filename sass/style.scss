@@ -21,6 +21,11 @@ html, body {
     100% {transform: rotate(-360deg);}
 }
 
+@keyframes turnLeft {
+    0% { transform: rotate(0deg); }
+    100% {transform: rotate(360deg);}
+}
+
 #app {
     width: 100%;
     height: 100%;
@@ -250,6 +255,7 @@ html, body {
     }
     .change {
         flex: 1;
+        width: 100%;
         text-align: center;
         overflow: hidden;
         a {
@@ -292,6 +298,23 @@ html, body {
             }
             &.play > i {
                 background-image: url('../images/icon-play.png');
+            }
+            &.loading > i {
+                position: relative;
+                &::after {
+                    content: '';
+                    @include px2rem(width, 92px);
+                    @include px2rem(height, 92px);
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    @include px2rem(margin-left, -46px);
+                    @include px2rem(margin-top, -46px);
+                    border: 2px solid $lineColor;
+                    border-radius: 50%;
+                    background: url('../images/loading.png') center no-repeat;
+                    animation: turnLeft 1.5s infinite;
+                }
             }
         }
     }

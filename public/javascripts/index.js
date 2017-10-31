@@ -471,10 +471,17 @@
      * @return null
      */
     function load(url) {
+        var className = state.className;
+        state.classList.remove(className);
+        state.classList.add('loading');
+
         xhr.open('GET', url);
         xhr.responseType = "arraybuffer";   // 返回类型为arraybuffer
         xhr.onload = function() {
             decodeSuceess = false;
+            state.classList.remove('loading');
+            state.classList.add(className);
+            
             // 解码音频数据，得到一个AudioBuffer对象
             ac.decodeAudioData(xhr.response, function(buffer) {
                 createAudio(buffer);
