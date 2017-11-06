@@ -247,6 +247,9 @@
         // 收起磁头
         upPin();
 
+        console.log('stop Audio');
+        console.log('bufferSource', bufferSource);
+
         // 停止当前的bufferSource
         bufferSource && bufferSource.stop();
         startInter && clearInterval(startInter);
@@ -463,6 +466,7 @@
             }
 
             skip = true;
+            console.log(startSecond);
             startSecond > 0 && stopAudio();
 
             var touch = e.touches[0];

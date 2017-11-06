@@ -12,8 +12,10 @@ html, body {
 
 @keyframes turnForever {
   0% {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg); }
   100% {
+    -webkit-transform: rotate(-360deg);
     transform: rotate(-360deg); } }
 
 #app {
@@ -38,6 +40,7 @@ html, body {
     bottom: 0;
     width: 100%;
     height: 100%;
+    display: -webkit-flex;
     display: flex;
     flex-direction: column; }
 
@@ -66,6 +69,7 @@ html, body {
 .content {
   width: 100%;
   position: relative;
+  -webkit-flex: 1;
   flex: 1;
   overflow: hidden; }
   .content .pin {
@@ -74,6 +78,7 @@ html, body {
     position: absolute;
     top: 0;
     left: 50%;
+    -webkit-transform: translateX(-0.10667rem) rotate(-29deg);
     transform: translateX(-0.10667rem) rotate(-29deg);
     transform-origin: 0% 0%;
     background: url("../images/pin.png") no-repeat left top;
@@ -81,6 +86,7 @@ html, body {
     z-index: 2;
     transition: transform 0.2s; }
     .content .pin.pin-play {
+      -webkittransform: translateX(-0.10667rem) rotate(0deg);
       transform: translateX(-0.10667rem) rotate(0deg); }
   .content .pin-top {
     width: 0.69333rem;
@@ -88,6 +94,7 @@ html, body {
     position: absolute;
     top: 0;
     left: 50%;
+    -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     background: url("../images/pin-circle.png") no-repeat center;
     background-size: 100% 100%;
@@ -98,6 +105,7 @@ html, body {
     position: absolute;
     top: 0;
     left: 50%;
+    -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     background: url("../images/pin-under-circle.png") no-repeat center;
     background-size: 100% 100%;
@@ -108,6 +116,7 @@ html, body {
     position: absolute;
     top: 2.13333rem;
     left: 50%;
+    -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     background: url("../images/disc.png") no-repeat center;
     background-size: 100% 100%; }
@@ -125,6 +134,7 @@ html, body {
 
 .footer {
   height: 4.26667rem;
+  display: -webkit-flex;
   display: flex;
   flex-direction: column; }
   .footer .operator {
@@ -159,6 +169,7 @@ html, body {
   .footer .progress {
     height: 1.06667rem; }
     .footer .progress .progress-wrapper {
+      display: -webkit-flex;
       display: flex; }
     .footer .progress .start {
       width: 12%;
@@ -166,6 +177,7 @@ html, body {
       line-height: 1.06667rem;
       color: #fff; }
     .footer .progress .bar {
+      -webkit-flex: 1;
       flex: 1;
       box-sizing: border-box;
       margin: 0rem 0.4rem;
@@ -178,6 +190,7 @@ html, body {
         width: 100%;
         position: absolute;
         top: 50%;
+        -webkit-transform: translateX(-50%);
         transform: translateY(-50%);
         z-index: 1; }
       .footer .progress .bar .outer {
@@ -186,6 +199,7 @@ html, body {
         width: 0%;
         position: absolute;
         top: 50%;
+        -webkit-transform: translateX(-50%);
         transform: translateY(-50%);
         z-index: 2; }
       .footer .progress .bar .dot {
@@ -193,6 +207,7 @@ html, body {
         height: 0.42667rem;
         position: absolute;
         top: 50%;
+        -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
         background: url("../images/bar-dot.png") no-repeat center;
         background-size: 100%;
@@ -202,6 +217,7 @@ html, body {
       line-height: 1.06667rem;
       color: #fff; }
   .footer .change {
+    -webkit-flex: 1;
     flex: 1;
     text-align: center;
     overflow: hidden; }
@@ -241,8 +257,10 @@ html, body {
   z-index: 5;
   transition: transform 0.2s; }
   .play-list.up {
+    -webkit-transform: tranlate(0, 0) tranlateZ(0);
     transform: tranlate(0, 0) tranlateZ(0); }
   .play-list.down {
+    -webkit-transform: translate(0, 100%) translateZ(0);
     transform: translate(0, 100%) translateZ(0); }
   .play-list .play-mask {
     position: fixed;
@@ -258,6 +276,7 @@ html, body {
     background-color: rgba(255, 255, 255, 0.95);
     width: 100%;
     height: 100%;
+    display: -webkit-flex;
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -267,6 +286,7 @@ html, body {
     right: 0;
     z-index: 10; }
     .play-list .play-content ul {
+      -webkit-flex: 1;
       flex: 1;
       overflow: auto; }
       .play-list .play-content ul li {

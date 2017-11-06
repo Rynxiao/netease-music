@@ -17,8 +17,8 @@ html, body {
 }
 
 @keyframes turnForever {
-    0% { transform: rotate(0deg); }
-    100% {transform: rotate(-360deg);}
+    0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(-360deg); transform: rotate(-360deg); }
 }
 
 #app {
@@ -44,6 +44,7 @@ html, body {
         bottom: 0;
         width: 100%;
         height: 100%;
+        display: -webkit-flex;
         display: flex;
         flex-direction: column;
     }
@@ -67,6 +68,7 @@ html, body {
 .content {
     width: 100%;
     position: relative;
+    -webkit-flex: 1;
     flex: 1;
     overflow: hidden;
     .pin {
@@ -75,6 +77,7 @@ html, body {
         position: absolute;
         top: 0;
         left: 50%;
+        -webkit-transform: translateX(-8 / 75 * 1rem) rotate(-29deg);
         transform: translateX(-8 / 75 * 1rem) rotate(-29deg);
         transform-origin: 0% 0%;
         background: url('../images/pin.png') no-repeat left top;
@@ -82,6 +85,7 @@ html, body {
         z-index: 2;
         transition: transform 0.2s;
         &.pin-play {
+            -webkittransform: translateX(-8 / 75 * 1rem) rotate(0deg);
             transform: translateX(-8 / 75 * 1rem) rotate(0deg);
         }
     }
@@ -91,6 +95,7 @@ html, body {
         position: absolute;
         top: 0;
         left: 50%;
+        -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
         background: url('../images/pin-circle.png') no-repeat center;
         background-size: 100% 100%;
@@ -102,6 +107,7 @@ html, body {
         position: absolute;
         top: 0;
         left: 50%;
+        -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
         background: url('../images/pin-under-circle.png') no-repeat center;
         background-size: 100% 100%;
@@ -113,6 +119,7 @@ html, body {
         position: absolute;
         @include px2rem(top, 160px);
         left: 50%;
+        -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
         background: url('../images/disc.png') no-repeat center;
         background-size: 100% 100%;
@@ -134,6 +141,7 @@ html, body {
 
 .footer {
     @include px2rem(height, 320px);
+    display: -webkit-flex;
     display: flex;
     flex-direction: column;
     .operator {
@@ -175,6 +183,7 @@ html, body {
     .progress {
         @include px2rem(height, 80px);
         .progress-wrapper {
+            display: -webkit-flex;
             display: flex;
         }
         .start {
@@ -184,6 +193,7 @@ html, body {
             color: $white;
         }
         .bar {
+            -webkit-flex: 1;
             flex: 1;
             box-sizing: border-box;
             @include px2rem(margin, 0, 30px);
@@ -197,6 +207,7 @@ html, body {
                 width: 100%;
                 position: absolute;
                 top: 50%;
+                -webkit-transform: translateX(-50%);
                 transform: translateY(-50%);
                 z-index: 1;
             }
@@ -206,6 +217,7 @@ html, body {
                 width: 0%;
                 position: absolute;
                 top: 50%;
+                -webkit-transform: translateX(-50%);
                 transform: translateY(-50%);
                 z-index: 2;
             }
@@ -214,6 +226,7 @@ html, body {
                 @include px2rem(height, 32px);
                 position: absolute;
                 top: 50%;
+                -webkit-transform: translate(-50%, -50%);
                 transform: translate(-50%, -50%);
                 background: url('../images/bar-dot.png') no-repeat center;
                 background-size: 100%;
@@ -227,6 +240,7 @@ html, body {
         }
     }
     .change {
+        -webkit-flex: 1;
         flex: 1;
         text-align: center;
         overflow: hidden;
@@ -275,9 +289,11 @@ html, body {
     right: 0;
     z-index: 5;
     &.up {
+        -webkit-transform: tranlate(0, 0) tranlateZ(0);
         transform: tranlate(0, 0) tranlateZ(0);
     }
     &.down {
+        -webkit-transform: translate(0, 100%) translateZ(0);
         transform: translate(0, 100%) translateZ(0);
     }
     transition: transform 0.2s;
@@ -296,6 +312,7 @@ html, body {
         background-color: rgba(255, 255, 255, 0.95);
         width: 100%;
         height: 100%;
+        display: -webkit-flex;
         display: flex;
         flex-direction: column;
         position: absolute;
@@ -305,6 +322,7 @@ html, body {
         right: 0;
         z-index: 10;
         ul {
+            -webkit-flex: 1;
             flex: 1;
             overflow: auto;
             li {

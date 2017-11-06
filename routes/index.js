@@ -11,7 +11,7 @@ var listPosts = [
 /* GET home page. */
 router.get('/', function(req, res, next) {
     fs.readdir(media, function(err, names) {
-        names = names.slice(1);
+        console.log(names);
         var first = names[0];
         var song = first.split(' - ')[1].replace('.mp3', '');
         var singer = first.split(' - ')[0];
