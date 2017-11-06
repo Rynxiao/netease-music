@@ -1,5 +1,4 @@
 (function() {
-
     // 工具方法，获取当前DOM
     var $ = function(id) {
         if (id.indexOf('.') !== -1) {
@@ -52,6 +51,10 @@
     var listLoop = $('#listLoop');
     var canvasDOM = $('#canvas');
     var content = $('#content');
+    var vol = $('#vol');
+    var vOut = $('#vOuter');
+    var vInner = $('#vInner');
+    var vDot = $('#vDot');
 
     var playState = PLAY_STATE.STOP;                // 播放状态
     var prevIndex = null;                           // 上一曲索引
@@ -61,17 +64,23 @@
     var isLoop = playMode === PLAY_MODE.SINGLE;     // 是否循环
     var isListOut = false;                          // 列表是否展开
     var dragState = {};                             // 拖动数据
+    var volDragState = {};                          // 音量拖动数据
     var isDrag = false;                             // 是否拖动
     var dotLeft = 0;                                // 拖动游标的左侧距离
+    var volDotLeft = 0;                             // 音量拖动游标的左侧距离
     var innerWidth = 0;                             // 播放条的宽度
+    var volInnerWidth = 0;                          // 音量条的宽度
     var skip = false;                               // 是否跳动播放
     var caps = [];
 
     var xhr = new XMLHttpRequest();                 // xhr AJAX异步请求对象
-    var ac = new window.AudioContext();             // AudioContext 对象
+    var ac = new (window.AudioContext 
+        || window.webkitAudioContext)();            // AudioContext 对象
     var bufferSource = null;                        // AudioBufferSourceNode对象
     var analyser = null;                            // 分析节点
-    var fftSize = 256;
+    var fftSize = 256;                              // 
+    var gainNode = null;                            // 音频节点
+    var gainValue = 0.2;                            // 初始音量
 
     var ctx = null;                                 // canvas上下文对象
     var canvasWidth = 0;                            // 
@@ -241,13 +250,23 @@
         // 先释放之前的AudioBufferSourceNode对象
         // 然后再重新连接
         // 因为不允许在一个Node上start两次
-        analyser && analyser.disconnect(ac.destination);
+        analyser && analyser.disconnect(gainNode);
+        gainNode && gainNode.disconnect(ac.destination);
         bufferSource = ac.createBufferSource();
         bufferSource.buffer = audioBuffer;
+
+        // 创建音频节点
+        gainNode = ac.createGain();
+        gainNode.gain.value = gainValue;
+
+        // 创建分析节点
         analyser = ac.createAnalyser();
         analyser.fftSize = fftSize;
+
         bufferSource.connect(analyser);
-        analyser.connect(ac.destination);
+        analyser.connect(gainNode);
+        gainNode.connect(ac.destination);
+
         bufferSource.onended = onPlayEnded;
         bufferSource.start(0, time);
 
@@ -331,13 +350,21 @@
         // 收起磁头
         upPin();
 
-        console.log('stop Audio');
-        console.log('bufferSource', bufferSource);
-
         // 停止当前的bufferSource
         bufferSource && bufferSource.stop();
         bufferSource = null;
         startInter && clearInterval(startInter);
+    }
+
+    /**
+     * 改变音量
+     * @param  number percent 音量值[0 ~ 1]
+     * @return void
+     */
+    function changeVol(percent) {
+        if (gainNode) {
+            gainNode.gain.value = percent;
+        }
     }
 
     /**
@@ -453,19 +480,27 @@
      */
     function createAudio(buffer) {
         if (ac.state === 'closed') {
-            ac = new window.AudioContext();
+            ac = new (window.AudioContext || window.webkitAudioContext)();
         }
         audioBuffer = buffer;
         ac.onstatechange = onStateChange;
+
         bufferSource = ac.createBufferSource();
+        bufferSource.buffer = buffer;
+
+        gainNode = ac.createGain();
+        gainNode.gain.value = gainValue;
+
         analyser = ac.createAnalyser();
         analyser.fftSize = fftSize;
-
-        bufferSource.buffer = buffer;
+        
         bufferSource.onended = onPlayEnded;
 
         bufferSource.connect(analyser);
-        analyser.connect(ac.destination);
+        analyser.connect(gainNode);
+        gainNode.connect(ac.destination);
+
+        // bufferSource.start(0);
     }
 
     /**
@@ -767,7 +802,6 @@
             }
 
             skip = true;
-            console.log(startSecond);
             startSecond > 0 && stopAudio();
 
             var touch = e.touches[0];
@@ -829,6 +863,50 @@
             skipAudio(skipTime);
         });
 
+        // 音量条的拖拽事件
+        vDot.addEventListener('touchstart', function(e) {
+            if (isDrag) {
+                return;
+            }
+
+            var touch = e.touches[0];
+            var startX = touch.clientX;
+            volDragState.startX = startX;
+            isDrag = true;
+        }); 
+
+        vDot.addEventListener('touchmove', function(e) {
+            if (!isDrag) {
+                return;
+            }
+            e.preventDefault();
+
+            var touch = e.touches[0];
+            var currentX = touch.clientX;
+            var offsetX = currentX - volDragState.startX;
+
+            var moveLeft = Math.max(0, Math.min(volDotLeft + offsetX, volInnerWidth));
+            var percent = parseFloat(moveLeft / volInnerWidth);
+            changeVol(percent);
+
+            vDot.style.left = moveLeft + 'px';
+            vOuter.style.width = moveLeft + 'px';
+            volDragState.moveLeft = moveLeft;
+        }, { passive: false });
+
+        vDot.addEventListener('touchend', function(e) {
+            if (!isDrag) {
+                return;
+            }
+
+            var percent = parseFloat(volDragState.moveLeft / volInnerWidth);
+            changeVol(percent);
+
+            volDotLeft = volDragState.moveLeft;
+            isDrag = false;
+            volDragState = {};
+        });
+
         // 播放模式切换
         loop.addEventListener('click', function() {
             changePlayMode(this, listLoop);
@@ -874,6 +952,10 @@
 
         // 设置进度条总共宽度
         innerWidth = inner.clientWidth;
+        volInnerWidth = vInner.clientWidth;
+        vDot.style.left = volInnerWidth / 2 + 'px';
+        vOuter.style.width = volInnerWidth / 2 + 'px';
+        volDotLeft = volInnerWidth / 2;
 
         initialCanvas();
 
@@ -884,7 +966,6 @@
         initEvents();
         init();
     }
-
+    
     document.addEventListener('DOMContentLoaded', mounted);
-
 })();

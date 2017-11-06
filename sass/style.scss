@@ -138,7 +138,7 @@ html, body {
             @include px2rem(margin-top, -155px);
             border-radius: 50%;
             &.turn-forever {
-                animation: turnForever 5s infinite linear;
+                animation: turnForever 8s infinite linear;
             }
         }
     }
@@ -159,9 +159,53 @@ html, body {
         bottom: 0;
         box-sizing: border-box;
         @include px2rem(padding, 40px);
+        .back-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
         canvas {
             width: 100%;
             height: 100%;
+            border-bottom: 1px dashed $lineColor;
+        }
+        .vol {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            @include px2rem(height, 80px);
+            .inner {
+                @include px2rem(height, 2px);
+                background-color: $barInner;
+                width: 100%;
+                position: absolute;
+                top: 50%;
+                -webkit-transform: translateX(-50%);
+                transform: translateY(-50%);
+                z-index: 1;
+            }
+            .outer {
+                @include px2rem(height, 2px);
+                background-color: $barOuter2;
+                width: 0%;
+                position: absolute;
+                top: 50%;
+                -webkit-transform: translateX(-50%);
+                transform: translateY(-50%);
+                z-index: 2;
+            }
+            .dot {
+                @include px2rem(width, 32px);
+                @include px2rem(height, 32px);
+                position: absolute;
+                top: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                background-color: $white;
+                border-radius: 50%;
+                z-index: 3;
+            }
         }
     }
 }
@@ -270,10 +314,11 @@ html, body {
         -webkit-flex: 1;
         flex: 1;
         width: 100%;
+        @include px2rem(height, 152px);
         text-align: center;
         overflow: hidden;
         a {
-            display: inline-block;
+            display: block;
             float: left;
             width: 20%;
             height: 100%;
@@ -285,8 +330,8 @@ html, body {
                 height: 100%;
                 background-position: center;
                 background-repeat: no-repeat;
+                @include px2rem(background-size, 40px, 39px);
                 &.loop {
-                    background-size: 40px 39px;
                     &.single {
                         background-image: url('../images/single.png');
                     }
@@ -309,9 +354,11 @@ html, body {
             }
             &.pause > i {
                 background-image: url('../images/icon-pause.png');
+                @include px2rem(background-size, 92px, 92px);
             }
             &.play > i {
                 background-image: url('../images/icon-play.png');
+                @include px2rem(background-size, 92px, 92px);
             }
             &.loading > i {
                 position: relative;

@@ -136,7 +136,7 @@ html, body {
       margin-top: -2.06667rem;
       border-radius: 50%; }
       .content .disc .disc-center.turn-forever {
-        animation: turnForever 5s infinite linear; }
+        animation: turnForever 8s infinite linear; }
   .content .front, .content .back {
     width: 100%;
     height: 100%;
@@ -152,9 +152,48 @@ html, body {
     bottom: 0;
     box-sizing: border-box;
     padding: 0.53333rem; }
+    .content .back .back-wrapper {
+      width: 100%;
+      height: 100%;
+      position: relative; }
     .content .back canvas {
       width: 100%;
-      height: 100%; }
+      height: 100%;
+      border-bottom: 1px dashed #c8c8c8; }
+    .content .back .vol {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1.06667rem; }
+      .content .back .vol .inner {
+        height: 0.02667rem;
+        background-color: #b2b2b2;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateY(-50%);
+        z-index: 1; }
+      .content .back .vol .outer {
+        height: 0.02667rem;
+        background-color: #999;
+        width: 0%;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateY(-50%);
+        z-index: 2; }
+      .content .back .vol .dot {
+        width: 0.42667rem;
+        height: 0.42667rem;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border-radius: 50%;
+        z-index: 3; }
 
 .footer {
   height: 4.26667rem;
@@ -244,10 +283,11 @@ html, body {
     -webkit-flex: 1;
     flex: 1;
     width: 100%;
+    height: 2.02667rem;
     text-align: center;
     overflow: hidden; }
     .footer .change a {
-      display: inline-block;
+      display: block;
       float: left;
       width: 20%;
       height: 100%;
@@ -258,15 +298,14 @@ html, body {
         width: 100%;
         height: 100%;
         background-position: center;
-        background-repeat: no-repeat; }
-        .footer .change a i.loop {
-          background-size: 40px 39px; }
-          .footer .change a i.loop.single {
-            background-image: url("../images/single.png"); }
-          .footer .change a i.loop.turn {
-            background-image: url("../images/turn.png"); }
-          .footer .change a i.loop.random {
-            background-image: url("../images/random.png"); }
+        background-repeat: no-repeat;
+        background-size: 0.53333rem 0.52rem; }
+        .footer .change a i.loop.single {
+          background-image: url("../images/single.png"); }
+        .footer .change a i.loop.turn {
+          background-image: url("../images/turn.png"); }
+        .footer .change a i.loop.random {
+          background-image: url("../images/random.png"); }
         .footer .change a i.prev {
           background-image: url("../images/icon-prev.png"); }
         .footer .change a i.next {
@@ -274,9 +313,11 @@ html, body {
         .footer .change a i.list {
           background-image: url("../images/icon-play-list.png"); }
       .footer .change a.pause > i {
-        background-image: url("../images/icon-pause.png"); }
+        background-image: url("../images/icon-pause.png");
+        background-size: 1.22667rem 1.22667rem; }
       .footer .change a.play > i {
-        background-image: url("../images/icon-play.png"); }
+        background-image: url("../images/icon-play.png");
+        background-size: 1.22667rem 1.22667rem; }
       .footer .change a.loading > i {
         position: relative; }
         .footer .change a.loading > i::after {

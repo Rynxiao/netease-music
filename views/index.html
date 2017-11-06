@@ -39,19 +39,32 @@
                         <img id="post" class="disc-center" src="/images/<%= post %>" alt="中心旋转">
                     </div>
                 </div>
+
+                <!-- 频谱部分 -->
                 <div class="back">
-                    <canvas id="canvas"></canvas>
+                    <div class="back-wrapper">
+                        <div class="vol" id="vol">
+                            <div class="inner" id="vInner"></div>
+                            <div class="outer" id="vOuter"></div>
+                            <div class="dot" id="vDot"></div>
+                        </div>
+                        <canvas id="canvas"></canvas>
+                    </div>
                 </div>
             </section>
 
             <!-- 底部 -->
             <section class="footer">
+
+                <!-- 点赞/下载 -->
                 <div class="operator">
                     <a href="javascript:void(0);"><i class="love"></i></a>
                     <a href="javascript:void(0);"><i class="download"></i></a>
                     <a href="javascript:void(0);"><i class="comment"></i></a>
                     <a href="javascript:void(0);"><i class="more"></i></a>
                 </div>
+
+                <!-- 播放条 -->
                 <div class="progress">
                     <div class="progress-wrapper">
                         <div class="start" id="start">00:00</div>
@@ -63,6 +76,8 @@
                         <div class="total" id="total">00:00</div>
                     </div>
                 </div>
+
+                <!-- 播放控制 -->
                 <div class="change">
                     <a href="javascript:void(0);" id="loop"><i class="loop turn"></i></a>
                     <a href="javascript:void(0);" id="prev"><i class="prev"></i></a>
