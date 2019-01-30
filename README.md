@@ -1,6 +1,8 @@
-## 网易云音乐播放器
+## Netease Cloud Midea Player
 
-# 运行方式
+A simple web demo of Netease Media Player
+
+### Run
 
 ```javascript
 cd wangyi_music
@@ -8,7 +10,7 @@ npm install
 npm run start
 localhost:3000
 ```
-# 效果图
+### Preivew
 
 ![xiaoguo](./shot/111.gif)
 
